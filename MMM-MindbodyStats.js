@@ -6,10 +6,11 @@ Module.register("MMM-MindbodyStats", {
 
 	// Default module config.
 	defaults: {
-		url: "",
-		arrayName: null,
-		tryFormatDate: false,
-		updateInterval: 15000
+		loginUrl: "https://prod-swamis.mindbody.io/api/v1/auth",
+		username: "",
+		password: "",
+		scheduleUrl: "https://prod-beacons.mindbody.io/api/v1/schedule?page%5Bsize%5D=50&page%5Bnumber%5D=1&filter%5Bascending%5D=false",
+		updateInterval: 12 * 60 * 60 * 1000
 	},
 
 	start: function () {
@@ -26,7 +27,7 @@ Module.register("MMM-MindbodyStats", {
 
 	// Request node_helper to get json from url
 	getJson: function () {
-		this.sendSocketNotification("MMM-MindbodyStats_GET_JSON", this.config.url);
+		this.sendSocketNotification("MMM-MindbodyStats_GET_JSON", this.config);
 	},
 
 	socketNotificationReceived: function (notification, payload) {
